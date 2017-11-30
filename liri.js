@@ -94,7 +94,7 @@ function spotifyThisSong() {
 
   params = songName;
 
-  spotify.search({type: "track", query: params}, function(error, data){
+  spotify.search({type: "track", query: params, limit: 20}, function(error, data){
     if(!error){
       var songInfo = data.track.items;
       for(var i = 0; i < 3; i++){
@@ -140,7 +140,7 @@ function movieThis() {
   if(!movie){
     movie = "mr nobody";
   }
-  params = movie
+  params = movie;
   request("http://www.omdbapi.com/?t=" + params + "&y=&plot=short&r=json&tomatoes=true", function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var movieObject = JSON.parse(body);
@@ -174,7 +174,7 @@ function doWhatItSays() {
       doWhatItSaysResults = data.split(",");
       spotifyThisSong(doWhatItSaysResults[0], doWhatItSaysResults[1]);
     } else {
-      console.log("Error occurred" + error);
+      console.log("Error: " + error);
     }
   });
 };
